@@ -110,8 +110,8 @@ static int init_display(struct fbtft_par *par)
 {
 	uint8_t madctrl_data;
 	
-	pr_info("ST7796 driver load");
-	pr_info("Rotation: %d",par->pdata->rotate);
+	pr_info("ST7796 driver: load");
+	pr_info("ST7796 Rotation: %d",par->pdata->rotate);
 
 	write_reg(par, ST7796S_SWRESET);
 	mdelay(100);
@@ -126,29 +126,29 @@ static int init_display(struct fbtft_par *par)
 	switch (par->pdata->rotate)
 	{
 	case 90:
-		pr_info("Set rotation 90");
+		pr_info("ST7796 Set rotation 90");
 		madctrl_data = TFT_ROTATE_90;
 		break;
 
 	case 180:
-		pr_info("Set rotation 180");
+		pr_info("ST7796 Set rotation 180");
 		madctrl_data = TFT_ROTATE_180;
 		break;
 
 	case 270:
-		pr_info("Set rotation 270");
+		pr_info("ST7796 Set rotation 270");
 		madctrl_data = TFT_ROTATE_270;
 		break;
 
 	default:
-		pr_info("Set rotation 0");
+		pr_info("ST7796 Set rotation 0");
 		madctrl_data = TFT_NO_ROTATION;
 		break;
 	}
 
 	madctrl_data |= ST7796S_COLOR;
 	
-	pr_info("MADCTRL: 0x%0X",madctrl_data);
+	pr_info("ST7796 MADCTRL: 0x%0X",madctrl_data);
 
 	write_reg(par, ST7796S_MADCTL, madctrl_data);
 	write_reg(par, ST7796S_COLMOD, 0x0055);
