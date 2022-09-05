@@ -189,8 +189,8 @@ static int blank(struct fbtft_par *par, bool on)
 
 static struct fbtft_display display = {
 	.regwidth = 8,
-	.width = 320,
-	.height = 480,
+	.width = 480,
+	.height = 320,
 	.fbtftops = {
 		.init_display = init_display,
 		.blank = blank,
