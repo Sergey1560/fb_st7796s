@@ -16,10 +16,7 @@
 #define ST7796S_MADCTL_BGR 0x08 // RGB-BGR ORDER
 #define ST7796S_MADCTL_RGB 0x00
 #define ST7796S_MADCTL_MH  0x04 // Horizontal Refresh Order
-
-#define ST7796S_ORIENTATION		(ST7796S_MADCTL_MV)|(ST7796S_MADCTL_MX)|(ST7796S_MADCTL_MY)
-#define ST7796S_COLOR 			ST7796S_MADCTL_BGR
-#define ST7796S_MADCTL_DATA     (ST7796S_ORIENTATION) | (ST7796S_COLOR)
+#define ST7796S_COLOR      ST7796S_MADCTL_BGR
 
 #define ST7796S_NOP        0x00 // No Operation
 #define ST7796S_SWRESET    0x01 // Software reset
@@ -96,14 +93,14 @@
 #define ST7796S_CSCON      0xF0 // Command Set Control
 #define ST7796S_SPIRC      0xFB // SPI Read Control
 
-#define TFT_EXCHANGE_XY  (1 << 1)
-#define TFT_INVERT_X     (1 << 2)
-#define TFT_INVERT_Y     (1 << 3)
 
 #define TFT_NO_ROTATION           (0x00)
-#define TFT_ROTATE_90             (TFT_INVERT_X)
-#define TFT_ROTATE_180            (TFT_INVERT_X| TFT_INVERT_Y)
-#define TFT_ROTATE_270            (TFT_INVERT_Y)
+#define TFT_ROTATE_90             (ST7796S_MADCTL_MX)
+#define TFT_ROTATE_180            (ST7796S_MADCTL_MX| ST7796S_MADCTL_MY)
+#define TFT_ROTATE_270            (ST7796S_MADCTL_MY)
+
+//#define TFT_ORIENTATION			  TFT_ROTATE_90	
+//#define ST7796S_MADCTL_DATA     (TFT_ORIENTATION) | (ST7796S_COLOR)
 
 /**
  * init_display() - initialize the display controller
@@ -111,10 +108,10 @@
 
 static int init_display(struct fbtft_par *par)
 {
-	u_int16_t rotation = 0;
-	u_int8_t madctrl_data;
-
+	uint8_t madctrl_data;
+	
 	pr_info("ST7796 driver load");
+	pr_info("Rotation: %d",par->pdata->rotate);
 
 	write_reg(par, ST7796S_SWRESET);
 	mdelay(100);
@@ -125,37 +122,35 @@ static int init_display(struct fbtft_par *par)
 	write_reg(par, ST7796S_CSCON, 0x00C3);  
 	write_reg(par, ST7796S_CSCON, 0x0096);  
 
-	switch (rotation)
-	{
-	case 0:
-		pr_info("ST7796: No rotation");
-		madctrl_data = TFT_NO_ROTATION;
-		break;
 
+	switch (par->pdata->rotate)
+	{
 	case 90:
-		pr_info("ST7796: Rotation 90");
+		pr_info("Set rotation 90");
 		madctrl_data = TFT_ROTATE_90;
 		break;
 
 	case 180:
-		pr_info("ST7796: Rotation 180");
+		pr_info("Set rotation 180");
 		madctrl_data = TFT_ROTATE_180;
 		break;
-	
+
 	case 270:
-		pr_info("ST7796: Rotation 270");
+		pr_info("Set rotation 270");
 		madctrl_data = TFT_ROTATE_270;
 		break;
 
 	default:
-		pr_info("ST7796: Unknown rotation, using 0");
+		pr_info("Set rotation 0");
 		madctrl_data = TFT_NO_ROTATION;
 		break;
 	}
 
 	madctrl_data |= ST7796S_COLOR;
+	
+	pr_info("MADCTRL: 0x%0X",madctrl_data);
 
-	write_reg(par, ST7796S_MADCTL, 0x48);
+	write_reg(par, ST7796S_MADCTL, madctrl_data);
 	write_reg(par, ST7796S_COLMOD, 0x0055);
 
 	write_reg(par, ST7796S_DIC, 0x0001);  
