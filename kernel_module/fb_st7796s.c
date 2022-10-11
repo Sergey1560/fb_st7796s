@@ -93,14 +93,10 @@
 #define ST7796S_CSCON      0xF0 // Command Set Control
 #define ST7796S_SPIRC      0xFB // SPI Read Control
 
-
-#define TFT_NO_ROTATION           (0x00)
+#define TFT_NO_ROTATION           (ST7796S_MADCTL_MV)
 #define TFT_ROTATE_90             (ST7796S_MADCTL_MX)
-#define TFT_ROTATE_180            (ST7796S_MADCTL_MX| ST7796S_MADCTL_MY)
+#define TFT_ROTATE_180            (ST7796S_MADCTL_MV | ST7796S_MADCTL_MX | ST7796S_MADCTL_MY)
 #define TFT_ROTATE_270            (ST7796S_MADCTL_MY)
-
-//#define TFT_ORIENTATION			  TFT_ROTATE_90	
-//#define ST7796S_MADCTL_DATA     (TFT_ORIENTATION) | (ST7796S_COLOR)
 
 /**
  * init_display() - initialize the display controller
