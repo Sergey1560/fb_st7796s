@@ -189,7 +189,7 @@ static struct fbtft_display display = {
 	.height = 320,
 	.fbtftops = {
 		.init_display = init_display,
-		.blank = blank,
+		//.blank = blank,
 	},
 };
 
