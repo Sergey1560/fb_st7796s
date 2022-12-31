@@ -174,7 +174,7 @@ static int init_display(struct fbtft_par *par)
 /**
  * blank() - blank the display
  */
-static int blank(struct fbtft_par *par, bool on)
+/*static int blank(struct fbtft_par *par, bool on)
 {
 	if (on)
 		write_reg(par, MIPI_DCS_SET_DISPLAY_OFF);
@@ -182,6 +182,7 @@ static int blank(struct fbtft_par *par, bool on)
 		write_reg(par, MIPI_DCS_SET_DISPLAY_ON);
 	return 0;
 }
+*/
 
 static struct fbtft_display display = {
 	.regwidth = 8,
