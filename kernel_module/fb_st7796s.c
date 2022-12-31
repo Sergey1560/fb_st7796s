@@ -190,6 +190,7 @@ static struct fbtft_display display = {
 	.fbtftops = {
 		.init_display = init_display,
 		//.blank = blank,
+	.backlight = 1,
 	},
 };
 

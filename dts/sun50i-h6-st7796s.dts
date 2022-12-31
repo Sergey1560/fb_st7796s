@@ -26,6 +26,7 @@
 		dc-gpios = <&pio 3 15 0>;     /* PD15 */
 		rotate = <270>;
 		debug = <1>;
+		led-gpios = <&pio, 3, 18, 1>;
 	    };
 	};
     };
