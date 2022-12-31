@@ -22,10 +22,11 @@
 		spi-max-frequency = <25000000>;
 		fps = <30>;
 		buswidth = <8>;
-		reset-gpios = <&pio 3 16 1>;  /* PD16 */
+		//reset-gpios = <&pio 3 16 1>;  /* PD16 - unused */
 		dc-gpios = <&pio 3 15 0>;     /* PD15 */
 		rotate = <270>;
 		debug = <1>;
+		led-gpios = <&pio 3 18 0>;
 	    };
 	};
     };

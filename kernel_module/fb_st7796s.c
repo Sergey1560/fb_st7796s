@@ -188,6 +188,7 @@ static struct fbtft_display display = {
 	.regwidth = 8,
 	.width = 480,
 	.height = 320,
+	.backlight = 1,
 	.fbtftops = {
 		.init_display = init_display,
 		//.blank = blank,
