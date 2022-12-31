@@ -19,7 +19,7 @@
 	    st7796: st7796s@0{
 		compatible = "sitronix,st7796s";
 		reg = <1>;
-		spi-max-frequency = <10000000>;
+		spi-max-frequency = <25000000>;
 		fps = <30>;
 		buswidth = <8>;
 		reset-gpios = <&pio 3 16 1>;  /* PD16 */
