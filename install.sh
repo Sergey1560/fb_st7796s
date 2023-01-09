@@ -46,6 +46,6 @@ sudo apt install xserver-xorg-video-fbdev
 echo "Copying xorg.conf rules..."
 sudo cp $SPATH/X11/xorg.conf.d/50* /etc/X11/xorg.conf.d
 sudo cp $SPATH/X11/xorg.conf.d/51* /etc/X11/xorg.conf.d
-sudo cp $PATH/X11/Xwrapper.conf /etc/X11/
+sudo cp $SPATH/X11/Xwrapper.conf /etc/X11/
 
 echo "Your need reboot your SBC to activate module"
