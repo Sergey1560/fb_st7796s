@@ -3,6 +3,8 @@
 ##### Please note this script is still under development
 ##### Внимание! Скрипт в стадии разработки и тестирования
 
+##### This script should be installed AFTER KlipperScreen
+
 SOURCES="https://github.com/evgs/fb_st7796s.git"
 
 die() { echo "$*" 1>&2 ; exit 1; }
@@ -13,11 +15,11 @@ SPATH=$(dirname "$SCRIPT")
 echo "Check kernel architecture..."
 UN=`uname -a`
 
-#armbian
+#armbian, https://www.armbian.com/orangepi3-lts/
 echo "$UN" | grep sunxi64 && LHEADERS=linux-headers-current-sunxi64
 echo "$UN" | grep sunxi64 && OVL=armbian-add-overlay
 
-#debian
+#debian, https://github.com/silver-alx/sbc/releases
 echo "$UN" | grep sun50iw6 && LHEADERS=linux-headers-next-sun50iw6
 echo "$UN" | grep sun50iw6 && OVL=orangepi-add-overlay
 
