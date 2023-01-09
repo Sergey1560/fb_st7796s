@@ -13,7 +13,7 @@ SPATH=$(dirname "$SCRIPT")
 echo "Check kernel architecture..."
 UN=`uname -a`
 echo "$UN" | grep sunxi64 && LHEADERS=linux-headers-current-sunxi64
-echo "$UN" | grep sun50iw6 && LHEADERS=linux-headers-current-sun50iw6
+echo "$UN" | grep sun50iw6 && LHEADERS=linux-headers-next-sun50iw6
 
 [ ! -z "$LHEADERS" ] || die "Unknown kernel architecture"
 
