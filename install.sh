@@ -12,7 +12,11 @@ SPATH=$(dirname "$SCRIPT")
 
 echo "Check kernel architecture..."
 UN=`uname -a`
+
+#armbian
 echo "$UN" | grep sunxi64 && LHEADERS=linux-headers-current-sunxi64
+
+#debian
 echo "$UN" | grep sun50iw6 && LHEADERS=linux-headers-next-sun50iw6
 
 [ ! -z "$LHEADERS" ] || die "Unknown kernel architecture"
@@ -37,10 +41,10 @@ sudo depmod -A
 echo "Appending to initramfs..."
 
 grep -qxF 'fb_st7796s' /etc/initramfs-tools/modules || echo fb_st7796s | sudo tee /etc/initramfs-tools/modules
-sudo update-initramfs -u
+sudo update-initramfs -u || die "Error updating initramfs"
 
 echo "Installing overlay..."
-sudo armbian-add-overlay $SPATH/dts/sun50i-h6-st7796s.dts
+sudo armbian-add-overlay $SPATH/dts/sun50i-h6-st7796s.dts || die "Error installing overlay"
 
 sudo systemctl stop KlipperScreen.service
 sudo rm /etc/X11/xorg.conf.d/50-fbturbo.conf
