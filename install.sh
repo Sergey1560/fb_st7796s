@@ -19,7 +19,7 @@ echo "$UN" | grep sunxi64 && OVL=armbian-add-overlay
 
 #debian
 echo "$UN" | grep sun50iw6 && LHEADERS=linux-headers-next-sun50iw6
-echo "$UN" | grep sunxi64 && OVL=orangepi-add-overlay
+echo "$UN" | grep sun50iw6 && OVL=orangepi-add-overlay
 
 [ ! -z "$LHEADERS" ] || die "Unknown kernel architecture"
 
