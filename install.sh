@@ -11,10 +11,14 @@ SCRIPT=$(realpath "$0")
 SPATH=$(dirname "$SCRIPT")
 
 echo "Check kernel architecture..."
-uname -a | grep sunxi64 || die "Unknown kernel architecture"
+UN=`uname -a`
+echo "$UN" | grep sunxi64 && LHEADERS=linux-headers-current-sunxi64
+echo "$UN" | grep sun50iw6 && LHEADERS=linux-headers-current-sun50iw6
+
+[ ! -z "$LHEADERS" ] || die "Unknown kernel architecture"
 
 sudo apt update
-sudo apt install git build-essential linux-headers-current-sunxi64 || die "Error while installing packages"
+sudo apt install git build-essential $LHEADERS || die "Error while installing packages"
 
 cd $SPATH
 
