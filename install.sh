@@ -60,4 +60,8 @@ sudo cp $SPATH/X11/xorg.conf.d/50* /etc/X11/xorg.conf.d
 sudo cp $SPATH/X11/xorg.conf.d/51* /etc/X11/xorg.conf.d
 sudo cp $SPATH/X11/Xwrapper.conf /etc/X11/
 
+echo "Installing touchscreen watchdog..."
+cd touchdog
+source ./touchdog-install.sh
+
 echo "Your need reboot your SBC to activate module"
