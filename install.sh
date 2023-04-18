@@ -22,6 +22,8 @@ echo "$UN" | grep sunxi64 && OVL=armbian-add-overlay
 #debian, https://github.com/silver-alx/sbc/releases
 echo "$UN" | grep sun50iw6 && LHEADERS=linux-headers-next-sun50iw6
 echo "$UN" | grep sun50iw6 && OVL=orangepi-add-overlay
+#workaround for kernel 5.10.76
+echo "$UN" | grep 5.10.76-sun50iw6 && LHEADERS=linux-headers-current-sun50iw6
 
 [ ! -z "$LHEADERS" ] || die "Unknown kernel architecture"
 
