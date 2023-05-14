@@ -2,6 +2,7 @@
 
 ##### Please note this script is still under development
 ##### Внимание! Скрипт в стадии разработки и тестирования
+##### inspired by mo5 (https://t.me/Ogmins, https://telegra.ph/kliperscreen-04-08 )
 
 ##### This script should be installed AFTER install.sh
 
