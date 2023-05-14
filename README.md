@@ -8,7 +8,7 @@ rm -r fb_st7796s
 git clone https://github.com/evgs/fb_st7796s.git
 fb_st7796s/install.sh
 ```
-Если дисплей повёрнут горизонтально, то дополнительно выполнить команду
+Если дисплей повёрнут горизонтально, то дополнительно запустить скрипт
 ```console
 fb_st7796s/switch_to_landscape.sh
 ```
