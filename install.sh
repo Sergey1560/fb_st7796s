@@ -54,6 +54,8 @@ sudo $OVL $SPATH/dts/sun50i-h6-st7796s.dts || die "Error installing overlay"
 
 sudo systemctl stop KlipperScreen.service
 sudo rm /etc/X11/xorg.conf.d/50-fbturbo.conf
+sudo rm /etc/X11/xorg.conf.d/51* 
+sudo rm /etc/X11/xorg.conf.d/52* 
 sudo apt remove xserver-xorg-video-fbturbo
 sudo apt install xserver-xorg-video-fbdev
 
