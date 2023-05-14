@@ -28,8 +28,8 @@ echo "$UN" | grep 5.10.76-sun50iw6 && LHEADERS=linux-headers-current-sun50iw6
 cd $SPATH
 
 echo "Installing overlay..."
-cp $OVL $SPATH/dts/sun50i-h6-st7796s-landscape.dts /tmp/sun50i-h6-st7796s.dts 
-sudo /tmp/sun50i-h6-st7796s.dts || die "Error installing overlay"
+cp $SPATH/dts/sun50i-h6-st7796s-landscape.dts /tmp/sun50i-h6-st7796s.dts 
+sudo $OVL /tmp/sun50i-h6-st7796s.dts || die "Error installing overlay"
 
 
 echo "Copying xorg.conf rules..."
