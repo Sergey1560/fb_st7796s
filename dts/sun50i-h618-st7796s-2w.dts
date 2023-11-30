@@ -1,0 +1,102 @@
+/dts-v1/;
+/plugin/;
+
+/*
+MOSI      	PH7 SPI1_MOSI
+MISO      	PH8 SPI1_MISO
+CLK       	PH6 SPI1_CLK
+TFT_CS    	PH5
+DC        	PH4 
+RST       	PI0
+TOUCH_CS  	PH9
+TOUCH_IRQ 	PI15
+LED       	3.3V
+BEEPER		PL2
+*/
+
+/ {
+
+	fragment@0 {
+		target-path = "/aliases";
+
+		__overlay__ {
+			spi1 = "/soc/spi@5011000";
+		};
+	};
+
+	fragment@1 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+			status = "okay";
+			#address-cells = <0x01>;
+			#size-cells = <0x00>;
+			pinctrl-names = "default";
+			pinctrl-0 = <0xffffffff 0xffffffff 0xffffffff>;
+		};
+	};
+
+	__fixups__ {
+		spi1 = "/fragment@1:target:0";
+		spi1_pins = "/fragment@1/__overlay__:pinctrl-0:0";
+		spi1_cs0_pin = "/fragment@1/__overlay__:pinctrl-0:4";
+		spi1_cs1_pin = "/fragment@1/__overlay__:pinctrl-0:8";
+	};
+};
+
+/ {
+   /* compatible = "allwinner,h616\0arm,sun50iw9p1";*/
+
+    fragment@1 {
+	target-path = "/soc/spi@5011000";
+	__overlay__ {
+	    num-cs = <2>;  
+	    status = "okay";
+	    #address-cells = <1>;
+	    #size-cells = <0>;
+
+	    st7796: st7796s@0{
+			compatible = "sitronix,st7796s";
+			reg = <0>;
+			spi-max-frequency = <16000000>;
+			fps = <30>;
+			buswidth = <8>;
+			reset-gpios = <&pio 8 0 1>;  /* PI0 */
+			dc-gpios = <&pio 7 4 0>;     /* PH4 */
+			rotate = <270>;
+			debug = <1>;
+	    };
+	};
+    };
+
+    fragment@1 {
+	target-path = "/soc/spi@5011000";
+	__overlay__ {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		status = "okay";
+			ads7846@0 {
+				compatible = "ti,ads7846";
+				reg = <1>;
+				status = "okay";
+				spi-max-frequency = <1000000>;
+				interrupts = <8 15 2>; /* high-to-low edge triggered */
+				interrupt-parent = <&pio>;   /* PI15 */
+				pendown-gpio = <&pio 8 15 0>;	    
+
+				/* driver defaults, optional */
+
+				ti,keep-vref-on = <1>;
+				ti,x-min = /bits/ 16 <00>;
+				ti,x-max = /bits/ 16 <0xFFF>;
+				ti,y-min = /bits/ 16 <00>;
+				ti,y-max = /bits/ 16 <0xFFF>;
+				ti,x-plate-ohms = /bits/ 16 <60>;
+				ti,pressure-max = /bits/ 16 <255>;
+				ti,swap-xy = <0>;	
+			};
+		};
+    };
+
+
+};
